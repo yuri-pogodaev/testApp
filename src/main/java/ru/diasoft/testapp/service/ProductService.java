@@ -1,6 +1,7 @@
 package ru.diasoft.testapp.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.diasoft.testapp.dto.ProductForInit;
 import ru.diasoft.testapp.dto.ProductForResponse;
 import ru.diasoft.testapp.dto.ProductForUpdate;
@@ -19,10 +20,9 @@ public class ProductService {
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
-
+    @Transactional
     public Product createNewProduct(@Valid ProductForInit productForInit) {
         Product newProduct = Product.builder()
-                .id(productForInit.getId())
                 .amount(productForInit.getAmount())
                 .name(productForInit.getName()).build();
         productRepository.saveAndFlush(newProduct);
@@ -57,7 +57,7 @@ public class ProductService {
         });
     }
 
-    public int sum() {
-        return productRepository.sum();
+    public int sum(String name) {
+        return productRepository.sum(name);
     }
 }

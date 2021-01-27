@@ -61,8 +61,8 @@ public class ProductController {
         productService.update(productForUpdate, id);
     }
 
-    @GetMapping("/getSumAmountQuery")
-    public int sum() {
-        return productService.sum();
+    @GetMapping("/getSumAmountQuery/{name}")
+    public int sum(@PathVariable("name") String name) {
+        return productService.sum(name);
     }
 }

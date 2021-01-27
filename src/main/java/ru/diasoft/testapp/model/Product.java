@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.UUID;
+
 @EqualsAndHashCode(of = "id")
 @Builder
 @Data
