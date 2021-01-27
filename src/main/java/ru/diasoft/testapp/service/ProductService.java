@@ -22,7 +22,6 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    @Transactional
     public Product createNewProduct(@Valid ProductForInit productForInit) {
         Product newProduct = Product.builder()
                 .amount(productForInit.getAmount())
@@ -31,6 +30,7 @@ public class ProductService {
         return newProduct;
     }
 
+    @Transactional
     public UUID init(@Valid ProductForInit productForInit) {
         Product newProduct = createNewProduct(productForInit);
         return newProduct.getId();
