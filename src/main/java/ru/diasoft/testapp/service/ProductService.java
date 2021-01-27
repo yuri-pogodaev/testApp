@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.diasoft.testapp.dto.ProductForInit;
 import ru.diasoft.testapp.dto.ProductForResponse;
 import ru.diasoft.testapp.dto.ProductForUpdate;
+import ru.diasoft.testapp.exception.EntityNotFoundException;
 import ru.diasoft.testapp.model.Product;
 import ru.diasoft.testapp.repository.ProductRepository;
 
@@ -20,6 +21,7 @@ public class ProductService {
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
+
     @Transactional
     public Product createNewProduct(@Valid ProductForInit productForInit) {
         Product newProduct = Product.builder()
@@ -35,12 +37,12 @@ public class ProductService {
     }
 
     public void deleteById(UUID id) throws Exception {
-        Product product = productRepository.findById(id).orElseThrow(() -> new Exception("product not found"));
+        Product product = productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("product not found", id));
         productRepository.deleteById(product.getId());
     }
 
     public ProductForResponse getById(UUID id) throws Exception {
-        Product product = productRepository.findById(id).orElseThrow(() -> new Exception("product not found"));
+        Product product = productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("product not found", id));
         return new ProductForResponse(product);
     }
 
