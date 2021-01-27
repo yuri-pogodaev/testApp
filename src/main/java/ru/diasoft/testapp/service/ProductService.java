@@ -36,21 +36,25 @@ public class ProductService {
         return newProduct.getId();
     }
 
+    @Transactional
     public void deleteById(UUID id) throws Exception {
         Product product = productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("product not found", id));
         productRepository.deleteById(product.getId());
     }
 
+    @Transactional
     public ProductForResponse getById(UUID id) throws Exception {
         Product product = productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("product not found", id));
         return new ProductForResponse(product);
     }
 
+    @Transactional
     public List<ProductForResponse> getAll() {
         List<Product> list = productRepository.findAll();
         return list.stream().map(ProductForResponse::new).collect(Collectors.toList());
     }
 
+    @Transactional
     public void update(@Valid ProductForUpdate productForUpdate, UUID id) throws Exception {
         productRepository.findById(id).map(u -> {
             u.setName(productForUpdate.getName());
@@ -59,6 +63,7 @@ public class ProductService {
         });
     }
 
+    @Transactional
     public int sum(String name) {
         return productRepository.sum(name);
     }

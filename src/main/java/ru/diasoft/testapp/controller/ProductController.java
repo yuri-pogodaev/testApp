@@ -15,13 +15,10 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
-import static ru.diasoft.testapp.controller.ProductController.REST_PRODUCT_URL;
-
 @RestController
-@RequestMapping(value = REST_PRODUCT_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/product", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProductController {
     private final ProductService productService;
-    public static final String REST_PRODUCT_URL = "/product";
 
     public ProductController(ProductService productService) {
         this.productService = productService;
@@ -32,7 +29,7 @@ public class ProductController {
     public ResponseEntity<UUID> save(@RequestBody @Valid ProductForInit productForInit) {
         UUID created = productService.init(productForInit);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_PRODUCT_URL + "/{id}")
+                .path("/{id}")
                 .buildAndExpand(created).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
