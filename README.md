@@ -1,4 +1,4 @@
-## Test app for Dia-soft
+## Test app for Diasoft
 Написать REST сервис выполняющий CRUD операции над таблицей product(id int, name varchar, amount int)
 и один метод который возвращает сумму полей amount по полю name которое передается в метод.
 Ожидается использование spring boot в реализации.
